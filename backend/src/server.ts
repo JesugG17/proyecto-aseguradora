@@ -1,6 +1,9 @@
-import express from 'express';
+import express, { Application } from 'express';
 
 export class Server {
+
+  private readonly app: Application;
+  private readonly port: number;
 
   constructor() {
     this.app = express();
