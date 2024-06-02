@@ -1,3 +1,6 @@
+import { AppRoutes } from "./presentation/routes";
 import { Server } from "./server";
 
-new Server().listen();
+new Server({
+  routes: AppRoutes.routes
+}).listen();

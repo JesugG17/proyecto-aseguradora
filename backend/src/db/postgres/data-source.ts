@@ -17,3 +17,5 @@ export const AppDataSource = new DataSource({
     trustServerCertificate: true
   }
 });
+
+export type Database = typeof AppDataSource;
