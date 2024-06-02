@@ -16,7 +16,7 @@ export class Car extends BaseEntity {
   @Column()
   year: number;
 
-  @ManyToOne(() => User, (user) => user.id)
+  @Column()
   user: number;
 
 }

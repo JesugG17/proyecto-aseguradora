@@ -8,12 +8,12 @@ export class ServicesRoutes {
   static get routes(): Router {
     const router = Router();
 
-    const packageRepositoryImpl = new ServicesRepositoryImpl();
-    const packageController = new ServiceController(packageRepositoryImpl);
+    const serviceRepositoryImpl = new ServicesRepositoryImpl();
+    const serviceController = new ServiceController(serviceRepositoryImpl);
 
-    router.get('/all', packageController.getAll);
+    router.get('/all', serviceController.getAll);
 
-    router.get('/:id', packageController.getByPackage);
+    router.get('/get-by-package/:id', serviceController.getByPackage);
 
     return router;
   }

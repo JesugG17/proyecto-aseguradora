@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Package } from "./packages.model";
 import { Car } from "./cars.model";
 
@@ -8,11 +8,10 @@ export class Policy extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Package, (pack) => pack.id)
+  @Column()
   package: number;
 
-  @OneToOne(() => Car)
-  @JoinColumn()
+  @Column()
   car: number;
 
 }

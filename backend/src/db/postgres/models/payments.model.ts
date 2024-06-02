@@ -11,7 +11,7 @@ export class Payment extends BaseEntity {
   @ManyToOne(() => User, (user) => user.id)
   user: number;
 
-  @ManyToOne(() => Policy, (policy) => policy.id)
+  @Column()
   policy: number;
 
 }
