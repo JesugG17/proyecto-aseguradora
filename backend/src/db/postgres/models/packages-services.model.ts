@@ -1,10 +1,13 @@
-import { Entity, ManyToMany, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Service } from "./services.model";
 import { Package } from "./packages.model";
 
 
 @Entity()
-export class ServicePackage {
+export class ServicePackage extends BaseEntity {
+
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @ManyToOne(() => Service, (service) => service.id)
   service: number;

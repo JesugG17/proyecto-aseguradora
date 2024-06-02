@@ -1,8 +1,8 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { User } from "./users.model";
 
 @Entity()
-export class Car {
+export class Car extends BaseEntity {
 
   @PrimaryColumn()
   id: string;

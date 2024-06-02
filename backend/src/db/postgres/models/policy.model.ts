@@ -1,9 +1,9 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Package } from "./packages.model";
 import { Car } from "./cars.model";
 
 @Entity()
-export class Policy {
+export class Policy extends BaseEntity {
 
   @PrimaryGeneratedColumn()
   id: number;
