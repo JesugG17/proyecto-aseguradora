@@ -7,33 +7,32 @@ export const seed = async() => {
   const allServicesPackages = await ServicePackage.find();
 
   if (allServices.length === 0) {
-    services.forEach(async({ name, description }) => {
-      const newService = new Service();
-      newService.name = name;
-      newService.description = description;
-      await newService.save();
-    });
+    await fillServices();
     console.log('SERVICIOS CREADOS');
   }
 
   if (allPackages.length === 0) {
-    packages.forEach(async({ name, description, price }) => {
-      const newPackage = new Package();
-      newPackage.name = name;
-      newPackage.description = description;
-      newPackage.price = price;
-      await newPackage.save();
-    });
+    await fillPackages();
     console.log('PAQUETES CREADOS');
   }
 
   if (allServicesPackages.length === 0) {
     const services = await Service.find();
-    const [basic, intermediate, premium] = await Package.find({
+    const packagesDb = await Package.find({
       order: {
         id: 'ASC'
       }
     });
+
+    const basic = packagesDb.find(item => item.name === 'Basico');
+    if (!basic) return;
+
+    const intermediate = packagesDb.find(item => item.name === 'Intermedio');
+    if (!intermediate) return;
+
+    const premium = packagesDb.find(item => item.name === 'Premium');
+    if (!premium) return;
+
     
     services.slice(0, 5).forEach(async(service) => {
       const newServicePackage = new ServicePackage();
@@ -62,13 +61,43 @@ export const seed = async() => {
 
 }
 
+const fillServices = async() => {
+  services.forEach(async({ name, description }) => {
+    const newService = new Service();
+    newService.name = name;
+    newService.description = description;
+    await newService.save();
+  });
+}
+
+const fillPackages = async() => {
+  packages.forEach(async({ name, description, price }) => {
+    const newPackage = new Package();
+    newPackage.name = name;
+    newPackage.description = description;
+    newPackage.price = price;
+    console.log(name);
+    await newPackage.save();
+  });
+}
 
 const packages = [
-  { name: 'Basico', price: 5000, description: 'Proteccion esencial para tu vehiculo, cubriendo los requisitos minimos de seguro y proporcionando una cobertura adecuada'},
-  { name: 'Intermedio', price: 7500, description: '' },
-  { name: 'Premium', price: 10000, description: '' }
-]
-
+  { 
+    name: 'Basico', 
+    price: 5000, 
+    description: 'Protección esencial para tu vehículo, cubriendo los requisitos mínimos de seguro y proporcionando una cobertura adecuada.' 
+  },
+  { 
+    name: 'Intermedio', 
+    price: 7500, 
+    description: 'Cobertura ampliada que incluye protección contra daños adicionales y asistencia en carretera, proporcionando un balance entre precio y beneficios para una mayor tranquilidad.' 
+  },
+  { 
+    name: 'Premium', 
+    price: 10000, 
+    description: 'Cobertura completa con beneficios exclusivos, incluyendo protección total contra todo tipo de daños, servicios de lujo y asistencia personalizada, garantizando la máxima seguridad para tu vehículo.' 
+  }
+];
 const services = [
   {
     name: "Seguro de Responsabilidad Civil",
