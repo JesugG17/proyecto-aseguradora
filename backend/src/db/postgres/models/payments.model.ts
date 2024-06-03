@@ -8,7 +8,7 @@ export class Payment extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.id)
+  @Column()
   user: number;
 
   @Column()
