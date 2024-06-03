@@ -5,7 +5,9 @@
   /* COLORS */
   --primary-green: #239b56;
   --light-green: rgba(35, 155, 86, 0.15);
-  --secondary-blue: #5DADE2;
+  --secondary-blue: rgb(95, 174, 227);
+  --light-blue: rgb(95, 174, 227, 0.25);
+  --dark-blue: #3D5A6A;
   --secondary-cyan: #A3E4D7;
   --secondary-orange: #F8C471;
   --white: #FFFFFF;

@@ -2,7 +2,7 @@
     <header>
         <nav>
             <router-link to="/">Inicio</router-link>
-            <router-link to="/about">Servicios</router-link>
+            <router-link to="/package-details">Servicios</router-link>
             <router-link to="/">Contacto</router-link>
         </nav>
     </header>
@@ -25,6 +25,7 @@ nav{
 a{
     font-size: 1.5rem;
     color: var(--primary-green);
+    
 
     &:hover{
         font-weight: 600;
