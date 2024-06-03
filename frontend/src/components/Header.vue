@@ -1,9 +1,9 @@
 <template>
     <header>
         <nav>
-            <router-lik to="/">Inicio</router-lik>
-            <router-lik to="/">Servicios</router-lik>
-            <router-lik to="/">Contacto</router-lik>
+            <router-link to="/">Inicio</router-link>
+            <router-link to="/about">Servicios</router-link>
+            <router-link to="/">Contacto</router-link>
         </nav>
     </header>
 </template>
@@ -22,7 +22,7 @@ nav{
     padding: 2rem 0;
     box-shadow: 3px 0px 10px rgba(0, 0, 0, 10%);
 }
-router-lik{
+a{
     font-size: 1.5rem;
     color: var(--primary-green);
 
