@@ -1,10 +1,23 @@
-import { Package, Service, ServicePackage } from "../db/postgres/models";
+import { Car, Package, Policy, Service, ServicePackage, User } from "../db/postgres/models";
 
-export const seed = async() => {
+export const seed = async () => {
 
   const allServices = await Service.find();
   const allPackages = await Package.find();
+  const allUsers = await User.find();
+  const allCars = await Car.find();
+  const allPolicy = await Policy.find();
   const allServicesPackages = await ServicePackage.find();
+
+  if (allUsers.length === 0) {
+    await fillUsers();
+    console.log('USUARIOS CREADOS')
+  }
+
+  if (allCars.length === 0) {
+    await fillCars();
+    console.log('AUTOS CREADOS')
+  }
 
   if (allServices.length === 0) {
     await fillServices();
@@ -33,36 +46,64 @@ export const seed = async() => {
     const premium = packagesDb.find(item => item.name === 'Premium');
     if (!premium) return;
 
-    
-    services.slice(0, 5).forEach(async(service) => {
+
+    services.slice(0, 5).forEach(async (service) => {
       const newServicePackage = new ServicePackage();
       newServicePackage.service = service.id;
       newServicePackage.package = basic.id;
       await newServicePackage.save();
     });
-    
-    services.slice(0, 7).forEach(async(service) => {
+
+    services.slice(0, 7).forEach(async (service) => {
       const newServicePackage = new ServicePackage();
       newServicePackage.service = service.id;
       newServicePackage.package = intermediate.id;
       await newServicePackage.save();
     });
-    
-    services.slice(0, services.length).forEach(async(service) => {
+
+    services.slice(0, services.length).forEach(async (service) => {
       const newServicePackage = new ServicePackage();
       newServicePackage.service = service.id;
       newServicePackage.package = premium.id;
       await newServicePackage.save();
     });
-    
+
     console.log("SERVICIOS PAQUETES CREADOS");
+  }
 
-  } 
-
+  if (allPolicy.length === 0) {
+    await fillPolicies();
+    console.log('POLIZAS CREADAS')
+  }
 }
 
-const fillServices = async() => {
-  services.forEach(async({ name, description }) => {
+
+const fillUsers = async () => {
+  users.forEach(async ({ id, name, lastName, email, password }) => {
+    const newUser = new User();
+    newUser.id = id
+    newUser.name = name
+    newUser.lastName = lastName
+    newUser.email = email
+    newUser.password = password
+    await newUser.save()
+  })
+}
+
+const fillCars = async () => {
+  cars.forEach(async ({ placa, model, marca, year, user }) => {
+    const newCar = new Car();
+    newCar.id = placa
+    newCar.model = model
+    newCar.brand = marca
+    newCar.year = year
+    newCar.user = user
+    newCar.save()
+  })
+}
+
+const fillServices = async () => {
+  services.forEach(async ({ name, description }) => {
     const newService = new Service();
     newService.name = name;
     newService.description = description;
@@ -70,8 +111,8 @@ const fillServices = async() => {
   });
 }
 
-const fillPackages = async() => {
-  packages.forEach(async({ name, description, price }) => {
+const fillPackages = async () => {
+  packages.forEach(async ({ name, description, price }) => {
     const newPackage = new Package();
     newPackage.name = name;
     newPackage.description = description;
@@ -81,21 +122,50 @@ const fillPackages = async() => {
   });
 }
 
+const fillPolicies = async () => {
+  policies.forEach(async ({ packagePolicy, car }) => {
+    const newPolicy = new Policy();
+    newPolicy.package = packagePolicy
+    newPolicy.car = car
+    newPolicy.save()
+  })
+}
+const users = [
+  {
+    id: 1,
+    name: 'andrew',
+    lastName: 'tellez',
+    email: 'andrew@gmail.com',
+    password: '123'
+  }
+]
+
+
+const cars = [
+  {
+    placa: 'VFX5T',
+    model: 'WRANGLER RUBICON',
+    marca: 'JEEP',
+    year: 2024,
+    user: 1
+  }
+]
+
 const packages = [
-  { 
-    name: 'Basico', 
-    price: 5000, 
-    description: 'Protección esencial para tu vehículo, cubriendo los requisitos mínimos de seguro y proporcionando una cobertura adecuada.' 
+  {
+    name: 'Basico',
+    price: 5000,
+    description: 'Protección esencial para tu vehículo, cubriendo los requisitos mínimos de seguro y proporcionando una cobertura adecuada.'
   },
-  { 
-    name: 'Intermedio', 
-    price: 7500, 
-    description: 'Cobertura ampliada que incluye protección contra daños adicionales y asistencia en carretera, proporcionando un balance entre precio y beneficios para una mayor tranquilidad.' 
+  {
+    name: 'Intermedio',
+    price: 7500,
+    description: 'Cobertura ampliada que incluye protección contra daños adicionales y asistencia en carretera, proporcionando un balance entre precio y beneficios para una mayor tranquilidad.'
   },
-  { 
-    name: 'Premium', 
-    price: 10000, 
-    description: 'Cobertura completa con beneficios exclusivos, incluyendo protección total contra todo tipo de daños, servicios de lujo y asistencia personalizada, garantizando la máxima seguridad para tu vehículo.' 
+  {
+    name: 'Premium',
+    price: 10000,
+    description: 'Cobertura completa con beneficios exclusivos, incluyendo protección total contra todo tipo de daños, servicios de lujo y asistencia personalizada, garantizando la máxima seguridad para tu vehículo.'
   }
 ];
 const services = [
@@ -140,3 +210,10 @@ const services = [
     description: "Cubre la pérdida o daños a los objetos personales y el equipaje que se encuentren dentro del vehículo en caso de accidente, robo o incendio."
   }
 ];
+
+const policies = [
+  {
+    packagePolicy: 3,
+    car: 1
+  }
+]
