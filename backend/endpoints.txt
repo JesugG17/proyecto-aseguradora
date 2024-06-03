@@ -1,0 +1,14 @@
+Obtener todos los paquetes [GET]
+http://localhost:3000/api/packages/all
+
+
+Obtener paquete por ID [GET]
+http://localhost:3000/api/packages/:id
+
+
+Obtener servicios [GET]
+http://localhost:3000/api/services/all
+
+
+Obtener servicios por paquete [GET]
+http://localhost:3000/api/services/get-by-package/:id
