@@ -12,3 +12,11 @@ http://localhost:3000/api/services/all
 
 Obtener servicios por paquete [GET]
 http://localhost:3000/api/services/get-by-package/:id
+
+Hacer un pago de la poliza [POST]
+http://localhost:3000/api/payments/create-payment
+JSON
+req.body = {
+    "userId": number
+    "policyId": number    
+}
