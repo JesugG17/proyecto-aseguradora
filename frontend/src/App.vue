@@ -6,7 +6,7 @@ import Header from './components/Header.vue'
 
 <template>
   <Header></Header>
-  <RouterLink to="/about">Ir about</RouterLink>
+  <RouterLink to="/about"></RouterLink>
   <RouterView />
 </template>
 

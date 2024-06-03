@@ -3,7 +3,8 @@
 :root {
   --font-family: "Montserrat Alternates", sans-serif;
   /* COLORS */
-  --primary-green: #239B56;
+  --primary-green: #239b56;
+  --light-green: rgba(35, 155, 86, 0.15);
   --secondary-blue: #5DADE2;
   --secondary-cyan: #A3E4D7;
   --secondary-orange: #F8C471;
@@ -19,6 +20,7 @@
 
 body {
   font-family: var(--font-family);
+  font-size: 16px;
   background-color: var(--white);
 }
 
