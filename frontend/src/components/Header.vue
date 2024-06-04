@@ -3,7 +3,7 @@
         <nav>
             <router-link to="/">Inicio</router-link>
             <router-link to="/package-details">Servicios</router-link>
-            <router-link to="/">Contacto</router-link>
+            <router-link to="/register-car-info">Contacto</router-link>
         </nav>
     </header>
 </template>
