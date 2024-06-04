@@ -2,32 +2,35 @@
   <div class="main__container">
     <div class="package__container">
       <div class="package__description">
-        <h2>Nombre del paquete</h2>
-        <p>$<span>5000</span> MNX anuales</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim dicta ut unde deserunt quisquam natus!
-          Temporibus amet in cumque itaque adipisci animi? Ad praesentium magni cum incidunt eum sequi soluta.</p>
+        <h2>{{ packageInfo?.name }}</h2>
+        <p>$<span>{{ packageInfo?.price }}</span> MNX anuales</p>
+        <p>
+          {{ packageInfo?.description }}
+        </p>
       </div>
       <h3>Coberturas Incluidas</h3>
       <div class="coverages__container">
-        <Service name="Daños a Terceros" description="Hasta $500,000 MXN"></Service>
-        <Service name="Daños a Terceros" description="Hasta $500,000 MXN"></Service>
-        <Service name="Daños a Terceros" description="Hasta $500,000 MXN"></Service>
-        <Service name="Daños a Terceros" description="Hasta $500,000 MXN"></Service>
-        <Service name="Daños a Terceros" description="Hasta $500,000 MXN"></Service>
-
+        <Service v-for="service in packageInfo.services" :name="service.name" :description="service.description" />
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "PackageDetail",
-  components: {
-    Service 
-  }
-}
+<script setup>
+import { useRoute } from 'vue-router';
+import { ref } from 'vue';
 import Service from '../components/Service.vue';
+import { getServicesByPackage } from '../services/packages/services.service';
+
+const route = useRoute();
+const packageInfo = ref();
+
+const fetchData = async() => {
+  const packageId = route.params.id;
+  packageInfo.value = await getServicesByPackage(packageId);
+}
+
+fetchData();
 </script>
 
 <style scoped>
@@ -68,13 +71,9 @@ import Service from '../components/Service.vue';
 }
 
 .coverages__container {
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-align-items: flex-start;
-align-content: flex-start;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
 gap: 2rem;
-
 
 }
 </style>

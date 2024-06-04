@@ -12,7 +12,7 @@
     <div class="package__container">
       <h2>Paquetes que ofrecemos</h2>
       <div class="card__container">
-        <PackageCard v-for="item in packages" :img="item.img" :title="item.name" :price="item.price" />
+        <PackageCard @click="router.push(`/package-details/${item.id}`)" v-for="item in packages" :img="item.img" :title="item.name" :price="item.price" />
       </div>
     </div>
   </div>
@@ -22,19 +22,17 @@
 import { ref } from 'vue';
 import PackageCard from '../components/PackageCard.vue';
 import { getAllPackages } from '../services/packages/packages.service';
+import { useRouter } from 'vue-router';
+import { PACKAGES_IMG } from '../utils/constants';
 
 const packages = ref([]);
+const router = useRouter();
 
 const fetchData = async() => {
-  const images = {
-    'Basico': '/img/icon-package-1.png',
-    'Intermedio': '/img/icon-package-2.png',
-    'Premium': '/img/icon-package-3.png',
-  };
   const packagesDb = await getAllPackages();
   packages.value = packagesDb.map(item => ({
     ...item,
-    img: images[item.name]
+    img: PACKAGES_IMG[item.name]
   }));
 
   console.log(packages.value);
