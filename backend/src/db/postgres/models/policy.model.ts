@@ -1,5 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+@Unique(["car"])
 @Entity()
 export class Policy extends BaseEntity {
 
@@ -10,6 +10,6 @@ export class Policy extends BaseEntity {
   package: number;
 
   @Column()
-  car: number;
+  car: string;
 
 }

@@ -123,10 +123,11 @@ const fillPackages = async () => {
 }
 
 const fillPolicies = async () => {
-  policies.forEach(async ({ packagePolicy, car }) => {
+    const carsPolicy = await Car.find();
+    carsPolicy.forEach(async (car) => {
     const newPolicy = new Policy();
-    newPolicy.package = packagePolicy
-    newPolicy.car = car
+    newPolicy.package = 3
+    newPolicy.car = car.id
     newPolicy.save()
   })
 }
@@ -210,10 +211,3 @@ const services = [
     description: "Cubre la pérdida o daños a los objetos personales y el equipaje que se encuentren dentro del vehículo en caso de accidente, robo o incendio."
   }
 ];
-
-const policies = [
-  {
-    packagePolicy: 3,
-    car: 1
-  }
-]
