@@ -20,3 +20,14 @@ req.body = {
     "userId": number
     "policyId": number    
 }
+
+crear un vehiculo [POST]
+http://localhost:3000/api/car/create-car
+JSON
+req.body = {
+    "id": string
+    "model": string 
+    "brand": string
+    "year": number
+    "user": number   
+}
