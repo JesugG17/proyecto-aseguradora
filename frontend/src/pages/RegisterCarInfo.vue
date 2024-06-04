@@ -33,7 +33,7 @@
                 <button type="submit" class="pay-button">PAGAR</button>
             </div> -->
             <div class="form-row">
-                <input type="file" ref="fileInput" style="display: none;" accept=".png,image/png"
+                <input type="file" ref="fileInput" style="display: none;" accept=".jpg,image/jpg"
                     @change="handleFileInputChange">
                 <button class="photo-button" @click="openFileInput($event)">+ Agregar fotos
                     del vehículo</button>
@@ -61,11 +61,10 @@ export default {
             brand: '',
             model: '',
             id: '',
-            year: ''
-        }, {
+            year: '',
             images: [],
             selectedImage: null
-        };
+        }
     },
     methods: {
         submitForm() {
@@ -82,6 +81,10 @@ export default {
             if (!this.year || this.year.trim().length === 0 || isNaN(this.year)) {
                 bandera = false;
             }
+            if(this.images.length !=2){
+                alert("Favor de incluir dos imagenes de tu automovil");
+                bandera = false;
+            }
             if (bandera) {
                 alert(`Marca: ${this.brand}, Modelo: ${this.model}, Placas: ${this.id}, Año: ${this.year}`); 
                 const body = {
@@ -91,6 +94,7 @@ export default {
                     year: this.year,
                     user: 1   
                 }
+                //Colocar el redireccionamiento a la siguiente ventana: Formulario de la tarjeta.
                 httpClient.post("/car/create-car",body)
                 .then(console.log("200: OK"))
                 .catch(console.log("Error en la peticion"));
@@ -109,17 +113,11 @@ export default {
                 alert('Solo puedes seleccionar hasta 2 imágenes.');
                 return;
             }
-            if (file && file.type === 'image/png') {
                 const reader = new FileReader();
                 reader.onload = () => {
                     this.images.push(reader.result);
                 };
                 reader.readAsDataURL(file);
-            } else {
-                // Handle error: Not a PNG file
-                alert('Por favor, selecciona un archivo PNG.');
-                this.$refs.fileInput.value = '';
-            }
         },
         showImage(image) {
             this.selectedImage = image;
