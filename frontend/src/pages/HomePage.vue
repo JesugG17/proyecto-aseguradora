@@ -12,23 +12,36 @@
     <div class="package__container">
       <h2>Paquetes que ofrecemos</h2>
       <div class="card__container">
-        <PackageCard img="../assets/icon-package-1.png" title="Paquete 1" price="1000">
-          <img src="../assets/icon-package-1.png" alt="">
-        </PackageCard>
-        <PackageCard img="../assets/icon-package-2.png" title="Paquete 2" price="1500"></PackageCard>
-        <PackageCard img="../assets/icon-package-3.png" title="Paquete 3" price="2000"></PackageCard>
+        <PackageCard v-for="item in packages" :img="item.img" :title="item.name" :price="item.price" />
       </div>
     </div>
   </div>
   </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import PackageCard from '../components/PackageCard.vue';
-export default {
-  components: {
-    PackageCard
-  }
-};
+import { getAllPackages } from '../services/packages/packages.service';
+
+const packages = ref([]);
+
+const fetchData = async() => {
+  const images = {
+    'Basico': '/img/icon-package-1.png',
+    'Intermedio': '/img/icon-package-2.png',
+    'Premium': '/img/icon-package-3.png',
+  };
+  const packagesDb = await getAllPackages();
+  packages.value = packagesDb.map(item => ({
+    ...item,
+    img: images[item.name]
+  }));
+
+  console.log(packages.value);
+}
+
+fetchData();
+
 </script>
 
 

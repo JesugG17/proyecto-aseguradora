@@ -1,8 +1,7 @@
 <template>
     <div class="card">
         <figure>
-            <!--  <img :src="img" :lt="'icon' + title" /> -->
-            <img src="../assets/../assets/icon-package-2.png" alt="">
+             <img :src="img" :lt="'icon' + title" />
         </figure>
             <h3>{{ title }}</h3>
             <p>${{ price }} MXN <span>/anual</span></p>
@@ -50,7 +49,7 @@ export default {
         & span{
             opacity: 0.50;
             color: var(--secondary-orange);
-            font-size: 0.5rem;
+            font-size: 0.8rem;
         }
     }
 
