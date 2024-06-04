@@ -150,7 +150,7 @@ export default {
 
 .header {
     height: 50px;
-    background: linear-gradient(to right, #66bb6a, #43a047);
+    background: linear-gradient(to left, #2ECC7180, #A3E4D7);
 }
 
 .form-container {
@@ -219,12 +219,13 @@ h2 {
 }
 
 .pay-button {
-    background-color: #4CAF50;
+    background-color: #2ECC71CC;
     color: white;
     position: relative;
     margin-top: 150px;
     right: 20px;
     bottom: 20px;
+    transition: all 350ms;
 }
 
 .photo-button:hover {
@@ -233,7 +234,7 @@ h2 {
 }
 
 .pay-button:hover {
-    background-color: #45a049;
+    filter: brightness(90%);
 }
 
 .form-container {
