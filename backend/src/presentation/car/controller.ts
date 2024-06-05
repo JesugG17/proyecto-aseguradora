@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { CarRepository } from "../../domain/repositories/car.repository";
+import { CreateCardDto } from "../../domain/dtos/car/create-card.dto";
 
 export class CarController { 
 
@@ -8,9 +9,9 @@ export class CarController {
   ){}
 
   createCar = async(req: Request, res: Response) => {
-    const { id ,model, brand, year, user } = req.body;
-    
-    await this.carRepository.createCar(id,model, brand, year, user);
+    const body = req.body as CreateCardDto;
+    console.log({ body });
+    await this.carRepository.createCar(body);
     
     res.json({ ok: true });
   }
