@@ -33,15 +33,17 @@
                 <button type="submit" class="pay-button">PAGAR</button>
             </div> -->
             <div class="form-row">
-                <input type="file" ref="fileInput" style="display: none;" accept=".jpg,image/jpg"
-                    @change="handleFileInputChange">
-                <button class="photo-button" @click="openFileInput($event)">+ Agregar fotos
-                    del vehículo</button>
+                <div>
+                    <input type="file" ref="fileInput" style="display: none;" accept=".jpg,image/jpg"
+                        @change="handleFileInputChange">
+                    <button class="photo-button" @click="openFileInput($event)">
+                        + Agregar fotos del vehículo
+                    </button>
 
-                <div id="preview">
-                    <p>Imagenes seleccionadas</p>
-                    <img v-for="(image, index) in images" :key="index" class="preview-image" :src="image"
-                        @click="showImage(image)">
+                    <div id="preview">
+                        <img v-for="(image, index) in images" :key="index" class="preview-image" :src="image"
+                            @click="showImage(image)">
+                    </div>
                 </div>
                 <!-- <div v-if="selectedImage" id="imageModal" style="display: none;">
                 <img :src="selectedImage" style="max-width: 100%; max-height: 100%;">
@@ -54,7 +56,7 @@
 </template>
 
 <script>
-import {httpClient} from '../services/httpClient.js'
+import { httpClient } from '../services/httpClient.js'
 export default {
     data() {
         return {
@@ -81,23 +83,23 @@ export default {
             if (!this.year || this.year.trim().length === 0 || isNaN(this.year)) {
                 bandera = false;
             }
-            if(this.images.length !=2){
+            if (this.images.length != 2) {
                 alert("Favor de incluir dos imagenes de tu automovil");
                 bandera = false;
             }
             if (bandera) {
-                alert(`Marca: ${this.brand}, Modelo: ${this.model}, Placas: ${this.id}, Año: ${this.year}`); 
+                alert(`Marca: ${this.brand}, Modelo: ${this.model}, Placas: ${this.id}, Año: ${this.year}`);
                 const body = {
-                    id:this.id,
-                    model:this.model,
+                    id: this.id,
+                    model: this.model,
                     brand: this.brand,
                     year: this.year,
-                    user: 1   
+                    user: 1
                 }
                 //Colocar el redireccionamiento a la siguiente ventana: Formulario de la tarjeta.
-                httpClient.post("/car/create-car",body)
-                .then(console.log("200: OK"))
-                .catch(console.log("Error en la peticion"));
+                httpClient.post("/car/create-car", body)
+                    .then(console.log("200: OK"))
+                    .catch(console.log("Error en la peticion"));
             }
         },
         openFileInput(event) {
@@ -113,11 +115,11 @@ export default {
                 alert('Solo puedes seleccionar hasta 2 imágenes.');
                 return;
             }
-                const reader = new FileReader();
-                reader.onload = () => {
-                    this.images.push(reader.result);
-                };
-                reader.readAsDataURL(file);
+            const reader = new FileReader();
+            reader.onload = () => {
+                this.images.push(reader.result);
+            };
+            reader.readAsDataURL(file);
         },
         showImage(image) {
             this.selectedImage = image;
@@ -136,21 +138,19 @@ export default {
     cursor: pointer;
     max-width: 100px;
     max-height: 100px;
-
 }
 
 .form-wrapper {
     max-width: 900px;
     margin: 20px auto;
-    border-radius: 8px;
+    border-radius: 1.5rem;
     overflow: hidden;
-    height: 450px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header {
-    height: 50px;
-    background: linear-gradient(to left, #2ECC7180, #A3E4D7);
+    height: 4rem;
+    background: linear-gradient(to right, var(--gradient--green), var(--secondary-cyan));
 }
 
 .form-container {
@@ -172,8 +172,8 @@ h2 {
 }
 
 .form-group {
+    font-family: var(--font-poppins);
     flex: 1;
-    margin-right: 100px;
 }
 
 .form-group:last-child {
@@ -183,58 +183,79 @@ h2 {
 .form-group label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
 }
 
 .form-group input {
-    width: 80%;
-    padding: 8px;
-    border: 1px solid #ccc;
+    background-color: var(--light-gray);
+    border: 1px transparent;
     border-radius: 4px;
+    padding: 0.75rem;
+    width: 80%;
+
+    &::placeholder {
+        opacity: 0.70;
+    }
 }
 
 .form-group input:focus {
     border: 1px solid #ccc;
-    border-radius: 4px;
+    outline: none;
+}
+
+.form-container>.form-row:last-of-type {
+    align-items: start;
+    display: flex;
+    height: 10rem;
+    text-align: center;
+    margin-top: 1.5rem;
+
+    & .pay-button {
+        align-self: flex-end;
+    }
+
+    &>div {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 .photo-button,
 .pay-button {
     display: block;
-    width: 200px;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    border: none;
+    font-family: var(--font-poppins);
+    padding: 10px;
 }
 
 .photo-button {
-    height: 50px;
-    background-color: #e0f7fa;
-    color: #007bff;
-    border: 1px solid #007bff;
-    margin-right: 10px;
+    background-color: var(--light-blueberry);
+    border: 1px transparent;
+    border-radius: 0.5rem;
+    color: var(--blueberry);
+    font-size: 0.85rem;
+    transition: 0.3s ease;
+    width: fit-content;
 }
 
 .pay-button {
-    background-color: #2ECC71CC;
-    color: white;
-    position: relative;
-    margin-top: 150px;
-    right: 20px;
-    bottom: 20px;
-    transition: all 350ms;
+    background-color: var(--primary-green);
+    opacity: 0.80;
+    color: var(--white);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    outline: none;
+    transition: all 350ms ease-in;
+    width: 10rem;
 }
 
 .photo-button:hover {
-    background-color: #007bff;
-    color: white;
+    border: 1px solid var(--blueberry);
 }
 
 .pay-button:hover {
-    filter: brightness(90%);
+    opacity: 1;
 }
 
 .form-container {
