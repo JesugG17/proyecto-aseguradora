@@ -188,7 +188,7 @@ h2 {
 .form-group input {
     background-color: var(--light-gray);
     border: 1px transparent;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     padding: 0.75rem;
     width: 80%;
 
@@ -198,7 +198,7 @@ h2 {
 }
 
 .form-group input:focus {
-    border: 1px solid #ccc;
+    border: 1px solid var(--gray);
     outline: none;
 }
 
