@@ -35,7 +35,6 @@ const fetchData = async() => {
     img: PACKAGES_IMG[item.name]
   }));
 
-  console.log(packages.value);
 }
 
 fetchData();

@@ -10,20 +10,29 @@
       </div>
       <h3>Coberturas Incluidas</h3>
       <div class="coverages__container">
-        <Service v-for="service in packageInfo.services" :index="service.id" :name="service.name" :description="service.description" />
+        <Service v-for="service in packageInfo?.services" :index="service.id" :name="service.name" :description="service.description" />
       </div>
+      <button @click="selectPackage" class="adquire__button">Adquirir</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 import Service from '../components/Service.vue';
 import { getServicesByPackage } from '../services/packages/services.service';
+import { usePackageStore } from '../store/package.store';
 
 const route = useRoute();
+const router = useRouter();
 const packageInfo = ref();
+const packageStore = usePackageStore();
+
+const selectPackage = () => {
+  packageStore.setSelectedPackage(packageInfo);
+  router.push(`/register-car-info/${route.params.id}`);
+}
 
 const fetchData = async() => {
   const packageId = route.params.id;
@@ -74,6 +83,25 @@ fetchData();
 display: grid;
 grid-template-columns: repeat(2, 1fr);
 gap: 2rem;
+}
 
+.adquire__button {
+  align-self: flex-end;
+  background-color: var(--primary-green);
+  opacity: 0.80;
+  color: var(--white);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  outline: none;
+  transition: all 350ms ease-in;
+  width: 10rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 350ms;
+
+  &:hover {
+    filter: brightness(110%)
+  }
 }
 </style>

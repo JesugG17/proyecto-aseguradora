@@ -1,9 +1,13 @@
 <template>
     <header>
         <nav>
-            <router-link to="/">Inicio</router-link>
-            <router-link to="/credit">Servicios</router-link>
-            <router-link to="/register-car-info">Contacto</router-link>
+            <router-link to="/">
+              <img src="/img/logo.svg"  alt="logo"/>
+            </router-link>
+            <div class="profile">
+              <p>Hola, Andrew!</p>
+              <img src="/img/profile.png" alt="profile photo" />
+            </div>
         </nav>
     </header>
 </template>
@@ -17,18 +21,29 @@
 <style scoped>
 nav{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     gap: 2rem;
-    padding: 2rem 0;
+    padding: 0px 4rem;
     box-shadow: 3px 0px 10px rgba(0, 0, 0, 10%);
 }
 a{
     font-size: 1.5rem;
     color: var(--primary-green);
     
+    & img {
+      width: 64px;
+      height: 64px;
+    }
 
     &:hover{
         font-weight: 600;
     }
+}
+
+.profile {
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 </style>

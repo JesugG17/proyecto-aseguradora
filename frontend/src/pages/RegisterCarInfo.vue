@@ -94,11 +94,11 @@ export default {
                     model: this.model,
                     brand: this.brand,
                     year: this.year,
-                    user: 1
+                    user: 1,
+                    packageId: this.$route.params.pack
                 }
-                //Colocar el redireccionamiento a la siguiente ventana: Formulario de la tarjeta.
                 httpClient.post("/car/create-car", body)
-                    .then(console.log("200: OK"))
+                    .then(() => this.$router.push('/payment'))
                     .catch(console.log("Error en la peticion"));
             }
         },
