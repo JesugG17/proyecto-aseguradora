@@ -10,7 +10,7 @@
       </div>
       <h3>Coberturas Incluidas</h3>
       <div class="coverages__container">
-        <Service v-for="service in packageInfo.services" :name="service.name" :description="service.description" />
+        <Service v-for="service in packageInfo.services" :index="service.id" :name="service.name" :description="service.description" />
       </div>
     </div>
   </div>
